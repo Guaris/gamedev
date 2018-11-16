@@ -1,0 +1,156 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://HUD.gd" type="Script" id=1]
+[ext_resource path="res://Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://HUD.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Mob.gd" type="Script" id=4]
+[ext_resource path="res://art/enemyWalking_1.png" type="Texture" id=5]
+[ext_resource path="res://art/enemyWalking_2.png" type="Texture" id=6]
+[ext_resource path="res://art/enemyFlyingAlt_1.png" type="Texture" id=7]
+[ext_resource path="res://art/enemyFlyingAlt_2.png" type="Texture" id=8]
+[ext_resource path="res://art/enemySwimming_1.png" type="Texture" id=9]
+[ext_resource path="res://art/enemySwimming_2.png" type="Texture" id=10]
+
+[sub_resource type="Curve2D" id=1]
+
+bake_interval = 5.0
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 7, 2.5, 0, 0, 0, 0, 487, 10.5, 0, 0, 0, 0, 483, 726.5, 0, 0, 0, 0, 7, 2.5 )
+}
+
+[sub_resource type="SpriteFrames" id=3]
+
+animations = [ {
+"frames": [ ExtResource( 5 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "walk",
+"speed": 4.0
+}, {
+"frames": [ ExtResource( 7 ), ExtResource( 8 ) ],
+"loop": true,
+"name": "fly",
+"speed": 3.0
+}, {
+"frames": [ ExtResource( 9 ), ExtResource( 10 ) ],
+"loop": true,
+"name": "swim",
+"speed": 5.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=2]
+
+custom_solver_bias = 0.0
+radius = 25.4667
+height = 20.0
+
+[node name="Main" type="Node" index="0"]
+
+script = ExtResource( 1 )
+
+[node name="ScoreTimer" type="Timer" parent="." index="0"]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = false
+autostart = false
+script = ExtResource( 1 )
+
+[node name="Player" parent="." index="1" instance=ExtResource( 2 )]
+
+[node name="MobTimer" type="Timer" parent="." index="2"]
+
+process_mode = 1
+wait_time = 0.5
+one_shot = false
+autostart = false
+
+[node name="StartTimer" type="Timer" parent="." index="3"]
+
+process_mode = 1
+wait_time = 2.0
+one_shot = true
+autostart = false
+
+[node name="StartPosition" type="Position2D" parent="." index="4"]
+
+position = Vector2( 240, 450 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="MobPath" type="Path2D" parent="." index="5"]
+
+self_modulate = Color( 0.5, 0.6, 1, 0.7 )
+curve = SubResource( 1 )
+
+[node name="MobSpawnLocation" type="PathFollow2D" parent="MobPath" index="0"]
+
+position = Vector2( 7, 2.5 )
+rotation = 0.0166652
+offset = 0.0
+h_offset = 0.0
+v_offset = 0.0
+rotate = true
+cubic_interp = true
+loop = true
+lookahead = 4.0
+
+[node name="HUD" parent="." index="6" instance=ExtResource( 3 )]
+
+[node name="Mob" type="RigidBody2D" parent="." index="7"]
+
+editor/display_folded = true
+position = Vector2( -4.45, 1.40001 )
+scale = Vector2( 0.829688, 0.925 )
+input_pickable = false
+collision_layer = 1
+collision_mask = 0
+mode = 0
+mass = 1.0
+friction = 1.0
+bounce = 0.0
+gravity_scale = 0.0
+custom_integrator = false
+continuous_cd = 0
+contacts_reported = 0
+contact_monitor = false
+sleeping = false
+can_sleep = true
+linear_velocity = Vector2( 0, 0 )
+linear_damp = -1.0
+angular_velocity = 0.0
+angular_damp = -1.0
+script = ExtResource( 4 )
+_sections_unfolded = [ "Collision" ]
+__meta__ = {
+"_edit_group_": true
+}
+min_speed = 150
+max_speed = 250
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Mob" index="0"]
+
+scale = Vector2( 0.75, 0.75 )
+frames = SubResource( 3 )
+animation = "fly"
+_sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Mob/AnimatedSprite" index="0"]
+
+position = Vector2( 16.1507, -2.82072 )
+scale = Vector2( 1.21374, 1.07333 )
+shape = SubResource( 2 )
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="Mob/AnimatedSprite/CollisionShape2D" index="0"]
+
+position = Vector2( 2.09615, 5.26584 )
+scale = Vector2( 2.02853, 3.03798 )
+rect = Rect2( -10, -10, 20, 20 )
+
+[connection signal="timeout" from="ScoreTimer" to="." method="_on_ScoreTimer_timeout"]
+
+[connection signal="hit" from="Player" to="." method="_on_Player_hit"]
+
+[connection signal="timeout" from="MobTimer" to="." method="_on_MobTimer_timeout"]
+
+[connection signal="timeout" from="StartTimer" to="." method="_on_StartTimer_timeout"]
+
+
