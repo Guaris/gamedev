@@ -1,16 +1,25 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://JungleDirtTileSet.tres" type="TileSet" id=1]
-[ext_resource path="res://Player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://WorldComplete.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://WorldComplete.tscn" type="PackedScene" id=2]
+[ext_resource path="res://DirtAutoTile.tres" type="TileSet" id=3]
 
 [node name="World2" type="Node"]
 
-[node name="TileMap" type="TileMap" parent="." index="0"]
+[node name="Player" parent="." index="0" instance=ExtResource( 1 )]
+
+position = Vector2( 94.8245, 195.867 )
+
+[node name="WorldComplete" parent="." index="1" instance=ExtResource( 2 )]
+
+position = Vector2( 289.137, 188.872 )
+nextworld = "res://World.tscn"
+
+[node name="TileMap" type="TileMap" parent="." index="2"]
 
 mode = 0
-tile_set = ExtResource( 1 )
-cell_size = Vector2( 32, 32 )
+tile_set = ExtResource( 3 )
+cell_size = Vector2( 64, 64 )
 cell_quadrant_size = 16
 cell_custom_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
 cell_half_offset = 2
@@ -24,19 +33,6 @@ collision_layer = 1
 collision_mask = 1
 occluder_light_mask = 1
 format = 1
-tile_data = PoolIntArray( 196619, 0, 0, 196620, 1, 0, 196621, 2, 0, 262155, 3, 0, 262156, 4, 0, 262157, 5, 0, 327686, 0, 0, 327687, 1, 0, 327688, 2, 0, 327691, 3, 0, 327692, 4, 0, 327693, 5, 0, 393222, 6, 0, 393223, 7, 0, 393224, 8, 0, 393227, 3, 0, 393228, 4, 0, 393229, 5, 0, 458754, 0, 0, 458755, 1, 0, 458756, 0, 0, 458757, 2, 0, 458763, 3, 0, 458764, 4, 0, 458765, 5, 0, 524290, 0, 0, 524291, 1, 0, 524292, 1, 0, 524293, 1, 0, 524294, 1, 0, 524295, 1, 0, 524296, 1, 0, 524297, 1, 0, 524298, 1, 0, 524299, 1, 0, 524300, 1, 0, 524301, 1, 0, 524302, 2, 0, 589826, 6, 0, 589827, 7, 0, 589828, 7, 0, 589829, 7, 0, 589830, 7, 0, 589831, 7, 0, 589832, 7, 0, 589833, 7, 0, 589834, 7, 0, 589835, 7, 0, 589836, 7, 0, 589837, 7, 0, 589838, 8, 0 )
-_sections_unfolded = [ "Cell" ]
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="Player" parent="." index="1" instance=ExtResource( 2 )]
-
-position = Vector2( 94.8245, 195.867 )
-
-[node name="WorldComplete" parent="." index="2" instance=ExtResource( 3 )]
-
-position = Vector2( 289.137, 188.872 )
-nextworld = "res://World.tscn"
+tile_data = PoolIntArray( 131071, 0, 1, 65536, 0, 2, 196607, 0, 131073, 131072, 0, 131074, 131079, 0, 1, 131080, 0, 65536, 131081, 0, 2, 262143, 0, 131073, 196608, 0, 131074, 196615, 0, 131073, 196616, 0, 196619, 196617, 0, 131074, 327678, 0, 6, 327679, 0, 65544, 262144, 0, 65547, 262145, 0, 196609, 262146, 0, 196609, 262147, 0, 196609, 262148, 0, 196609, 262149, 0, 10, 262150, 0, 65536, 262151, 0, 131078, 262152, 0, 131072, 262153, 0, 65538, 393214, 0, 65541, 327685, 0, 65537, 327686, 0, 131072, 327687, 0, 65538, 458750, 0, 65542, 458751, 0, 196609, 393216, 0, 196609, 393217, 0, 196609, 393218, 0, 196610 )
 
 

@@ -11,7 +11,7 @@ config_version=3
 [application]
 
 config/name="platformeryoutubetestmove"
-run/main_scene="res://World.tscn"
+run/main_scene="res://StartMenu.tscn"
 config/icon="res://icon.png"
 
 [display]
@@ -25,4 +25,5 @@ window/stretch/aspect="expand"
 
 [rendering]
 
+quality/2d/use_pixel_snap=true
 environment/default_environment="res://default_env.tres"
